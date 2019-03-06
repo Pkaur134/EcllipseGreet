@@ -1,0 +1,224 @@
+/*
+ * Assign03Tester.java built by 
+M. Mohiudidn on 3/1/2018
+updated on 3/3/2018
+version 1.2 
+It tests SAQuestion, TFQuestion and MCQuestion classes with 18 tests
+
+ */
+package questions;
+
+import java.util.Arrays;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+/**
+ *
+ * @author Muhammad
+ */
+public class Assign03Tester {
+    
+    public Assign03Tester() {
+    }
+
+     /**
+     * Test of isAnswer method, of class TFQuestion.
+     */
+    @Test
+    public void testNoArgConstructorTFQuestion() {
+        System.out.println("Testing no-arg constructor of TFQuestion");
+        TFQuestion saQ = new TFQuestion();
+        assertEquals("Expecting TBD ", saQ.getQuestionText(), "TBD");
+
+    }
+
+    @Test
+    public void testNoArgConstructorSAQuestion() {
+        System.out.println("Testing no-arg constructor of SAQuestion");
+        SAQuestion saQ = new SAQuestion();
+        assertEquals("Expecting TBD ", saQ.getQuestionText(), "TBD");
+
+    }
+
+    @Test
+    public void testThreeArgConstructorSAQuestion() {
+        System.out.println("Testing three-arg constructor SAQuestion");
+        // SAQuestion(int id, String text, String answer)
+        SAQuestion saQ = new SAQuestion(4, "Capital of Ontario?", "Toronto"); 
+        assertEquals("Expecting Toronto ", saQ.getQuestionText(), 
+                "Capital of Ontario?");
+        assertEquals("Expecting 4 ", saQ.getQuestionId(), 4);
+
+    }
+
+    @Test
+    public void testThreeArgConstructorTFQuestion() {
+        System.out.println("Testing three-arg constructor TFQuestion");
+        // TFQuestion(int id, String Questiontext, boolean answer)
+        TFQuestion saQ = new TFQuestion(4, "Capital of Ontari is Toronto", true); 
+        assertEquals("Expecting answer is true", saQ.getQuestionText(), 
+                "Capital of Ontari is Toronto");
+        assertEquals("Expecting true ", saQ.isAnswer(), true);
+
+    }
+
+    @Test
+    public void testIsAnswerTFQ() {
+        System.out.println("Testing isAnswer of TFQuestion");
+        TFQuestion instance = new TFQuestion(2, "Is Ottawa Canada's capital [true or false]",
+                true);
+        assertEquals(true, instance.isAnswer());
+    }
+
+    @Test
+    public void testIsCorrectTFQuestion() {
+        System.out.println("Testing isCorrect of TFQuestion");
+        TFQuestion instance = new TFQuestion(2, "Is Ottawa Canada's capital [true or false]",
+                true);
+        assertEquals(true, instance.isCorrect("true"));
+        assertEquals(true, instance.isCorrect(true));
+    }
+
+    @Test
+    public void testIsCorrectSAQuestion() {
+        System.out.println("Testing isCorrect of SAQuestion");
+        SAQuestion instance = new SAQuestion(1, "How many provinces does Canada have?", "10");
+        assertEquals(true, instance.isCorrect(10));
+        
+
+    }
+
+    /**
+     * Test of setAnswer method, of class TFQuestion.
+     */
+    @Test
+    public void testSetAnswerTFQuestion() {
+        System.out.println("Testing setAnswer of TFQuestion");
+        boolean ans = false;
+        TFQuestion instance = new TFQuestion();
+        instance.setAnswer(ans);
+    }
+
+    @Test
+    public void testSetAnswerSAQuestion() {
+        System.out.println("Testing setAnswer of SAQuestion");
+        boolean ans = false;
+        TFQuestion instance = new TFQuestion();
+        instance.setAnswer(ans);
+    }
+
+    @Test
+    public void testToStringTFQuestion() {
+        System.out.println("Testing toString() for TFQuestion");
+        TFQuestion instance = new TFQuestion(5, "Is Eiffel tower in England?", false);
+        String str = instance.toString();
+        assertTrue(str.contains("false") && str.contains("Is Eiffel tower in England?"));
+
+    }
+
+    @Test
+    public void testToStringSAQuestion() {
+        System.out.println("Testing toString() for SAQuestion");
+        SAQuestion instance = new SAQuestion(5, "Which city has Eiffel tower?", "Paris");
+        String str = instance.toString();
+        assertTrue(str.contains("Which city has Eiffel tower?"));
+
+    }
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testSetQuestionTextExceptionSAQ() throws IllegalArgumentException {
+        System.out.println("Testing exception in setQuestionText method of SAQuestion");
+        String str = null;
+        SAQuestion saQ = new SAQuestion();
+        thrown.expect(IllegalArgumentException.class);
+        //thrown.expectMessage("Answer cannot be a null-string.");
+        saQ.setAnswer(str);
+    }
+    public void testSetAnswer() {
+        System.out.println("setAnswer");
+        char answer = ' ';
+        MCQuestion instance = new MCQuestion();
+        instance.setAnswer(answer);
+        
+        fail("The test case is a prototype.");
+    }
+
+    
+    /**
+     * Test of getAnswer method, of class MCQuestion.
+     */
+    @Test
+    public void testGetAnswerMCQ() {
+        System.out.println("getAnswer, MCQ");
+        MCQuestion instance = new MCQuestion(1,"Capital city of Canada is", 'A',
+                "Ottawa", "Vancouver", "New York", "Toronto" );
+        assertEquals('a', instance.getAnswer());
+        
+    }
+
+    /**
+     * Test of setOptions method, of class MCQuestion.
+     */
+    @Test
+    public void testSetOptionsMCQ() {
+        System.out.println("setOptions, MCQ class");
+        String[] choices = {"Ottawa", "London", "Montreal", "Toronto"};
+        MCQuestion instance = new MCQuestion(1,"Capital city of Canada is", 'A',
+                "Ottawa", "Vancouver", "New York", "Toronto" );
+        instance.setOptions("Ottawa", "London", "Montreal", "Toronto");
+        assertTrue(Arrays.deepEquals(choices, instance.getOptions()));
+    }
+    @Test
+    public void testSetOptionsExceptionMCQ() throws IllegalArgumentException {
+        System.out.println("Testing exception in setOptions method of MCQuestion");
+        MCQuestion mcq = new MCQuestion(1,"Capital city of Canada is", 'A',
+                "Ottawa", "Vancouver", "New York", "Toronto" );
+        thrown.expect(IllegalArgumentException.class);
+        //thrown.expectMessage("Answer cannot be a null-string.");
+        mcq.setAnswer('E');
+    }
+
+    /**
+     * Test of getOptions method, of class MCQuestion.
+     */
+    @Test
+    public void testGetOptionsMCQ() {
+        System.out.println("getOptions, MCQ");
+        MCQuestion instance = new MCQuestion(1,"Capital city of Canada is", 'A',
+                "Ottawa", "Vancouver", "New York", "Toronto" );
+        String[] expResult = {"Ottawa", "Vancouver", "New York", "Toronto"};
+        String[] result = instance.getOptions();
+        assertTrue(Arrays.deepEquals(result, expResult));
+        
+    }
+
+    /**
+     * Test of isCorrect method, of class MCQuestion.
+     */
+    @Test
+    public void testIsCorrectMCQ() {
+        System.out.println("isCorrect of MCQ");
+        MCQuestion instance = new MCQuestion(1,"Capital city of Canada is", 'A',
+                "Ottawa", "Vancouver", "New York", "Toronto" );
+        assertFalse(instance.isCorrect("B"));
+        assertTrue(instance.isCorrect("A"));
+       
+    }
+
+    /**
+     * Test of toString method, of class MCQuestion.
+     */
+    @Test
+    public void testToStringMCQ() {
+        System.out.println("toString of MCQ");
+                MCQuestion instance = new MCQuestion(1,"Capital city of Canada is",
+                        'A', "Ottawa", "Vancouver", "New York", "Toronto" );
+
+        assertTrue(instance.toString().contains("Capital city of Canada is") &&
+                instance.toString().contains("Ottawa"));
+        
+    }
+}
